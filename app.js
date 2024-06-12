@@ -29,6 +29,33 @@ app.get("/view",(req,res)=>{
     )
 })
 
+app.post("/search",(req,res)=>{
+    let input=req.body
+    studentmodel.find(input).then(
+        (data)=>{
+            res.json(data)
+        }
+    ).catch(
+        (error)=>{
+            res.send("error")
+        }
+    )
+})
+
+app.post("/delete",(req,res)=>{
+    let input=req.body
+    studentmodel.findByIdAndDelete(input._id).then(
+        (response)=>{
+            res.json({"status":"success"})
+        }
+    ).catch(
+        (error)=>{
+            res.json({"status":"failed"})
+        }
+    )
+})
+
+
 app.listen(8083,()=>{
     console.log("server started")
 })
